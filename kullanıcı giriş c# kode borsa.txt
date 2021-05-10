@@ -1,0 +1,171 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WindowsFormsApp3
+{
+    public partial class kullanicigiris : Form
+    {
+        int buğday = 100;
+        int arpa = 100;
+        int yulaf = 100;
+
+        int PiyasaBuğday = 5000;
+        int piyasaArpa = 5000;
+        int PiyasaYulaf = 5000;
+        int PiyasaYulaftl = 1;
+        int piyasaArpatl = 1;
+        int piyasaBuğdaytl = 1;
+
+        int tl = 5000;
+
+
+        int alimMiktar;
+        public kullanicigiris()
+        {
+            InitializeComponent();
+        }
+
+        private void kullanicigiris_Load(object sender, EventArgs e)
+        {
+            label12.Text = buğday.ToString();
+            label11.Text = arpa.ToString();
+            label10.Text = yulaf.ToString();
+            label15.Text = PiyasaBuğday.ToString();
+            label14.Text = piyasaArpa.ToString();
+            label13.Text = PiyasaYulaf.ToString();
+            label6.Text = piyasaBuğdaytl.ToString();
+            label5.Text = piyasaArpatl.ToString();
+            label4.Text = PiyasaYulaftl.ToString();
+            label23.Text = tl.ToString();
+        }
+
+      private void Guncelle()
+        {
+
+            label12.Text = buğday.ToString();
+            label11.Text = arpa.ToString();
+            label10.Text = yulaf.ToString();
+            label15.Text = PiyasaBuğday.ToString();
+            label14.Text = piyasaArpa.ToString();
+            label13.Text = PiyasaYulaf.ToString();
+            label6.Text = piyasaBuğdaytl.ToString();
+            label5.Text = piyasaArpatl.ToString();
+            label4.Text = PiyasaYulaftl.ToString();
+            label23.Text = tl.ToString();
+
+            PiyasaBuğday += Rnd.Next(-5, 5);
+            PiyasaYulaf += Rnd.Next(-5, 5);
+            piyasaArpa += Rnd.Next(-5, 5);
+            Kur();
+            
+
+        }
+        Random Rnd = new Random();
+
+        int buğdaykur;
+        
+
+        private void Kur()
+        {
+            buğdaykur = 5000-PiyasaBuğday;
+
+
+            piyasaBuğdaytl = piyasaBuğdaytl + (buğdaykur / 100);
+
+
+
+
+
+        }
+
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            alimMiktar = Convert.ToInt32(textBox1.Text);
+
+
+            if (checkBox1.Checked && tl>=piyasaBuğdaytl*alimMiktar)
+            {
+                PiyasaBuğday -= alimMiktar;
+                buğday += alimMiktar;
+                tl -= alimMiktar * piyasaBuğdaytl;
+                Guncelle();
+            }
+            else
+            {
+                MessageBox.Show("yeterli miktarda tlniz yok");
+            }
+            if(checkBox2.Checked && tl >= piyasaArpatl * alimMiktar)
+            {
+                piyasaArpa -= alimMiktar;
+                arpa += alimMiktar;
+                tl -= alimMiktar * piyasaArpatl;
+                Guncelle();
+            }
+            else
+            {
+                MessageBox.Show("yeterli miktarda tlniz yok gerekli olan para "+alimMiktar*piyasaArpatl);
+            }
+
+            if (checkBox3.Checked && tl >= PiyasaYulaftl * alimMiktar)
+            {
+                PiyasaYulaf -= alimMiktar;
+                yulaf += alimMiktar;
+                tl -= alimMiktar * PiyasaYulaftl;
+                Guncelle();
+
+            }
+            else
+            {
+                MessageBox.Show("yeterli miktarda tlniz yok");
+            }
+
+
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if(checkBox1.Checked && buğday >= alimMiktar)
+            {
+
+                tl += piyasaBuğdaytl * alimMiktar;
+                buğday -= alimMiktar;
+                PiyasaBuğday += alimMiktar;
+                Guncelle();
+
+            }
+            if(checkBox2.Checked&& arpa >= alimMiktar)
+            {
+                tl += piyasaArpatl * alimMiktar;
+                arpa -= alimMiktar;
+                piyasaArpa += alimMiktar;
+                Guncelle();
+
+
+            }
+            if(checkBox3.Checked && yulaf >= alimMiktar)
+            {
+                tl += PiyasaYulaftl * alimMiktar;
+                yulaf -= alimMiktar;
+                PiyasaYulaf += alimMiktar;
+                Guncelle();
+
+
+            }
+
+        }
+    }
+}

@@ -1,0 +1,65 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.IO;
+namespace WindowsFormsApp3
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+          
+          
+        }
+
+        public string[] username = { "username1", "username2" };
+        public string[] passwords = { "password1", "password2" };
+        List<string> users = new List<string>();
+        List<string> password = new List<string>();
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (username.Contains(textBox1.Text) && passwords.Contains(textBox2.Text) && Array.IndexOf(username, textBox1.Text) == Array.IndexOf(passwords, textBox2.Text))
+            {
+
+                kullanicigiris f2 = new kullanicigiris();
+                f2.ShowDialog();
+
+            }
+        else if(users.Contains(textBox1.Text) && password.Contains(textBox2.Text) && Array.IndexOf(users.ToArray(), textBox1.Text) == Array.IndexOf(password.ToArray(), textBox2.Text))
+            {
+                kullanicigiris f2 = new kullanicigiris();
+                f2.ShowDialog();
+
+            }
+            else
+            {
+                MessageBox.Show("username or password fail");
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            StreamReader Sr = new StreamReader("logininfo.txt");
+            string line = "";
+            while ((line = Sr.ReadLine()) != null)
+            {
+                string[] components = line.Split(" ".ToArray(),StringSplitOptions.RemoveEmptyEntries);
+                users.Add(components[0]);
+                password.Add(components[1]);
+
+
+            }
+
+
+            Sr.Close();
+                    
+                    
+        }
+    }

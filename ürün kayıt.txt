@@ -1,0 +1,22 @@
+namespace WindowsFormsApp3
+{
+    class urun
+    {
+
+        string Miktar;
+        StreamWriter sw = new StreamWriter("urun.txt");
+
+        public void UrunEkle(string ad,int miktar)
+        {
+           
+            sw.WriteAsync(ad);
+            sw.WriteAsync(" ");
+          Miktar = Convert.ToString(miktar);
+            sw.WriteAsync(Miktar);
+
+            
+        }
+
+     
+    }
+}
